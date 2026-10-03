@@ -52,5 +52,41 @@ public class README_Reader {
                 }
         }
     }
+
+    public void readPeopleData(String filepath, ArrayList<People_Data> C) throws IOException {
+        File file = new File(filepath);
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line;
+
+        People_Data Temp_info = null;
+
+        while ((line = reader.readLine()) != null) {
+            if(line.contains("Name:")) {
+                Temp_info = new People_Data();
+                String[] temp = line.split(":");
+                Temp_info.setName(temp[1]);
+                C.add(Temp_info);
+            }
+            if(line.contains("ORCID:")) {
+                String[] temp = line.split(":");
+                Temp_info.setID(temp[1]);
+            }
+            if(line.contains("Institution:")) {
+                String[] temp = line.split(":");
+                Temp_info.setInstitution(temp[1]);
+            }
+            if(line.contains("Address:")) {
+                String[] temp = line.split(":");
+                Temp_info.setAddress(temp[1]);
+            }
+            if(line.contains("Email:")) {
+                String[] temp = line.split(":");
+                Temp_info.setEmail(temp[1]);
+            }
+            if(line.contains("Date")) {
+                break;
+            }
+        }
+    }
 }
 
