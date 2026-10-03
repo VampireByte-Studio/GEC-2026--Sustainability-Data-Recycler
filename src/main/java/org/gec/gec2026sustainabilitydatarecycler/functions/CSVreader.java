@@ -1,33 +1,22 @@
 package org.gec.gec2026sustainabilitydatarecycler.functions;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CSVreader {
-    /*temp values for testing
-    int num_Var = 0;
-    int num_Case = 0;
-    String var_list[]; */
-    String filePath = "C:\\Users\\theme\\IdeaProjects\\GEC-2026--Sustainability-Data-Recycler\\src\\main\\java\\org\\gec\\gec2026sustainabilitydatarecycler\\functions\\CowEnergyBalanceData-1.csv"; //temp
-    File file = new File(filePath);
-    public List<String[]> readCSV() {
+
+    public List<String[]> readCSV(String filePath) throws IOException {
         List<String[]> rows = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                System.out.println(Arrays.toString(values)); //print to terminal for testing
-                rows.add(values);
+                if (line.isBlank()) continue;              // skip empty lines
+                rows.add(line.split(",", -1));             // -1 keeps empty cells at the end of a row
             }
-        }catch (IOException e) {
-            e.printStackTrace();
         }
-return rows;
+        return rows;
     }
-
-
 }

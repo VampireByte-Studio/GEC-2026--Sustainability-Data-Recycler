@@ -1,20 +1,23 @@
 package org.gec.gec2026sustainabilitydatarecycler.functions;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.File;                                   // CHANGED (replaces BufferedWriter/FileWriter)
+import java.nio.file.Files;                            // CHANGED (only used by the test main below)
 import java.util.List;
 
 public class CSVtoJSON {
-    public static void main(String[] args) throws Exception {
+
+    // CHANGED: was "public static void main(String[] args)"; now it takes the inputs and returns the JSON text
+    public static String toJson(File csvFile, File readmeFile, String title) throws Exception {
         //read csv
         CSVreader reader = new CSVreader();
-        List<String[]> rows = reader.readCSV();
+        List<String[]> rows = reader.readCSV(csvFile.getPath());
         //values
-        String csvFilename = "csvtest";
-        String readmeFilename = "filenametest";
-        String title = "researchnametest";
+        String csvFilename = csvFile.getName();
+        String readmeFilename = readmeFile == null ? "" : readmeFile.getName();
+        title = title.replace("\\", "\\\\").replace("\"", "\\\"");
         String[] header = rows.get(0);
         int num_Var = header.length;
+        header[0] = header[0].replace("\uFEFF", "");
         //build JSON
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
@@ -49,29 +52,29 @@ public class CSVtoJSON {
                 } catch (NumberFormatException e) {
                     isNumber = false;
                 }
-                if (cell.isEmpty()) {
-                    sb.append("null");                                   // empty cell
+                if (cell.isEmpty() || cell.equals(".")) {
+                    sb.append("null");
                 } else if (isNumber) {
                     sb.append(cell);
                 } else {
-                    sb.append("\"").append(cell.replace("\"", "\\\"")).append("\"");
+                    sb.append("\"").append(cell.replace("\\", "\\\\").replace("\"", "\\\"")).append("\"");
                 }
 
             }
             sb.append("}");
             if (i < rows.size() - 1) sb.append(",");
+            sb.append("\n");
         }
 
         sb.append("  ]\n");
         sb.append("}\n");
-        //write file
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter("output.json"))) {
-                bw.write(sb.toString());
-            }
-
-            System.out.println("Wrote " + (rows.size() - 1) + " rows to output.json");
-        }
-
-
+        return sb.toString();
     }
 
+
+    public static void main(String[] args) throws Exception {
+        String json = toJson(new File("CowEnergyBalanceData-1.csv"), null, "Test title");
+        Files.writeString(java.nio.file.Path.of("output.json"), json);
+        System.out.println("Done");
+    }
+}
