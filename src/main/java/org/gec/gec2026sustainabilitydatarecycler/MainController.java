@@ -150,27 +150,6 @@ public class MainController {
         }
     }
 
-    // fills your TableView with the CSV, one column per header name
-    private void showTable() throws Exception {
-        List<String[]> rows = new CSVreader().readCSV(csvFile.getPath());
-        String[] header = rows.get(0);
-        header[0] = header[0].replace("\uFEFF", "");     // strip the hidden BOM
-
-        dataTable.getColumns().clear();                  // removes the placeholder C1 and C2
-        dataTable.getItems().clear();
-
-        for (int j = 0; j < header.length; j++) {
-            final int col = j;                           // must be final for the lambda
-            TableColumn<String[], String> tc = new TableColumn<>(header[j].trim());
-            tc.setCellValueFactory(c -> {
-                String[] row = c.getValue();
-                String v = col < row.length ? row[col].trim() : "";
-                return new SimpleStringProperty(v.equals(".") ? "—" : v);   // missing shows as a dash
-            });
-            dataTable.getColumns().add(tc);
-        }
-        dataTable.getItems().addAll(rows.subList(1, rows.size()));          // skip the header row
-    }
 }
 
 
