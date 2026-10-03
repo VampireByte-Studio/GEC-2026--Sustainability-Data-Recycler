@@ -41,17 +41,17 @@ public class README_Reader {
             }
             if (check == 0) continue;
 
-            if (line.contains("Name:")) {
+            if (Temp_info != null && line.contains("Name:")) {
                     Temp_info = new Variable_Info();
                     String[] temp = line.split(":");
                     Temp_info.setVar_List(temp[1]);
                     A.add(Temp_info);
                 }
-            if (line.contains("Description:")) {
+            if (Temp_info != null && line.contains("Description:")) {
                     String[] temp = line.split(":");
                     Temp_info.setDescrition(temp[1]);
                 }
-            if (line.contains("Notes:")) {
+            if (Temp_info != null && line.contains("Notes:")) {
                 String[] temp = line.split(":");
                     Temp_info.setNotes(temp[1]);
                 }
@@ -73,19 +73,19 @@ public class README_Reader {
                 C.add(Temp_info);
             }
             if (Temp_info != null && line.contains("ORCID:")) {
-                String[] temp = line.split(":", 2);
+                String[] temp = line.split(":");
                 Temp_info.setID(temp[1]);
             }
             if(line.contains("Institution:")) {
-                String[] temp = line.split(":", 2);
+                String[] temp = line.split(":");
                 Temp_info.setInstitution(temp[1]);
             }
             if(line.contains("Address:")) {
-                String[] temp = line.split(":", 2);
+                String[] temp = line.split(":");
                 Temp_info.setAddress(temp[1]);
             }
             if(line.contains("Email:")) {
-                String[] temp = line.split(":", 2);
+                String[] temp = line.split(":");
                 Temp_info.setEmail(temp[1]);
             }
             if(line.contains("Date")) {
