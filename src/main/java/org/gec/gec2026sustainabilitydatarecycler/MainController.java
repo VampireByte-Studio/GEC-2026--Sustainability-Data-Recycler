@@ -32,7 +32,7 @@ public class MainController {
         jsonResult = null;
         jsonlabel.setText("");
     }
-
+//select readme
     @FXML private void chooseReadme() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Choose README");
@@ -43,13 +43,13 @@ public class MainController {
         readmelabel.setText(f.getName());
         clearResult();
     }
-
+//select csv
     @FXML private void chooseCsv() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Choose CSV");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", "*.csv"));
         File f = fc.showOpenDialog(csvlabel.getScene().getWindow());
-        if (f == null) return;
+        if (f == null) return;  //use cancelled
         csvFile = f;
         csvlabel.setText(f.getName());
         clearResult();
@@ -73,15 +73,15 @@ public class MainController {
 
     @FXML private void downloadJSON() {
         if (jsonResult == null) {
-            jsonlabel.setText("Click RUN first");
+            jsonlabel.setText("Click RUN first");   //make sure run button works first to run CSVtoJSON
             return;
         }
         FileChooser fc = new FileChooser();
-        fc.setTitle("Save JSON");
+        fc.setTitle("Save JSON");               //inform user
         fc.setInitialFileName("output.json");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
         File out = fc.showSaveDialog(jsonlabel.getScene().getWindow());
-        if (out == null) return;
+        if (out == null) return;     //if problem display error
         try {
             Files.writeString(out.toPath(), jsonResult);
             jsonlabel.setText("Saved " + out.getName());

@@ -14,7 +14,7 @@ public class CSVreader {
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.isBlank()) continue;              // skip empty lines
-                rows.add(line.split(",", -1));             // -1 keeps empty cells at the end of a row
+                rows.add(line.split(",", -1));             // -1 to keep empty cells at the end of a row
             }
         }
         return rows;

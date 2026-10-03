@@ -45,6 +45,7 @@ public class CSVtoJSON {
                     cell = "";
                 }
                 sb.append("\"").append(header[j].trim()).append("\": ");
+                //detect if value is a number
                 boolean isNumber;
                 try {
                     Double.parseDouble(cell);
@@ -52,6 +53,7 @@ public class CSVtoJSON {
                 } catch (NumberFormatException e) {
                     isNumber = false;
                 }
+                //check what is in the cell, if its a number we can just append,
                 if (cell.isEmpty() || cell.equals(".")) {
                     sb.append("null");
                 } else if (isNumber) {
@@ -71,7 +73,7 @@ public class CSVtoJSON {
         return sb.toString();
     }
 
-
+        //quick test
     public static void main(String[] args) throws Exception {
         String json = toJson(new File("CowEnergyBalanceData-1.csv"), null, "Test title");
         Files.writeString(java.nio.file.Path.of("output.json"), json);
