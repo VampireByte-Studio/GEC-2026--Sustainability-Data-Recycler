@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="807.0" prefWidth="1079.0" style="-fx-background-color: #549955;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gec.gec2026sustainabilitydatarecycler.MainController">
+   <children>
+      <Button layoutX="26.0" layoutY="31.0" mnemonicParsing="false" onAction="#chooseReadme" style="-fx-background-color: #9adcf2;" text="INSERT README" />
+      <Button layoutX="168.0" layoutY="31.0" mnemonicParsing="false" onAction="#chooseCsv" style="-fx-background-color: #9adcf2;" text="INSERT CSV" />
+      <Label fx:id="readmelabel" layoutX="26.0" layoutY="60.0" text="Label" />
+      <Label fx:id="csvlabel" layoutX="168.0" layoutY="60.0" text="Label" />
+       <TextField fx:id="titleField" layoutX="18.0" layoutY="96.0" style="-fx-background-color: #9adcf2;" />
+      <Button layoutX="194.0" layoutY="96.0" mnemonicParsing="false" onAction="#RUN" style="-fx-background-color: #9adcf2;" text="RUN" />
+      <Button layoutX="281.0" layoutY="31.0" mnemonicParsing="false" onAction="#downloadJSON" style="-fx-background-color: #9adcf2;" text="DOWNLOAD JSON" />
+      <Label fx:id="jsonlabel" layoutX="409.0" layoutY="35.0" text="Label" />
+       <TableView fx:id="dataTable" layoutX="375.0" layoutY="86.0" prefHeight="691.0" prefWidth="690.0" style="-fx-background-color: #9adcf2;">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <TableView fx:id="Peopletable" layoutX="13.0" layoutY="146.0" prefHeight="299.0" prefWidth="348.0" style="-fx-background-color: #9adcf2;">
+         <columns>
+            <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="C2" />
+         </columns>
+      </TableView>
+      <TableView fx:id="Vocabtable" layoutX="13.0" layoutY="454.0" prefHeight="299.0" prefWidth="348.0" style="-fx-background-color: #9adcf2;">
+         <columns>
+            <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="C2" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
