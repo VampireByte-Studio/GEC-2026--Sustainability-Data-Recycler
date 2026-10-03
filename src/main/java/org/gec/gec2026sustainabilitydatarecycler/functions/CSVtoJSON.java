@@ -6,14 +6,15 @@ import java.util.List;
 
 public class CSVtoJSON {
     public static void main(String[] args) throws Exception {
-        //values
-        String csvFilename = "csvtest";
-        String readmeFilename = "filenametest";
-        String title ="researchnametest";
-        int num_Var =0;
         //read csv
         CSVreader reader = new CSVreader();
         List<String[]> rows = reader.readCSV();
+        //values
+        String csvFilename = "csvtest";
+        String readmeFilename = "filenametest";
+        String title = "researchnametest";
+        String[] header = rows.get(0);
+        int num_Var = header.length;
         //build JSON
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
@@ -27,17 +28,50 @@ public class CSVtoJSON {
         sb.append("  },\n");
 
         //data
-       // sb.append("  \"data\": [\n");
-       // for(int i =1; i>)
+        sb.append("  \"data\": [\n");
+        for (int i = 1; i < rows.size(); i++) {
+            String[] row = rows.get(i);
+            sb.append("    {");
+            for (int j = 0; j < header.length; j++) {
+                if (j > 0) sb.append(", ");
+                String cell;
 
-        //write file
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("output.json"))) {
-            bw.write(sb.toString());
+                if (j < row.length) {
+                    cell = row[j].trim();
+                } else {
+                    cell = "";
+                }
+                sb.append("\"").append(header[j].trim()).append("\": ");
+                boolean isNumber;
+                try {
+                    Double.parseDouble(cell);
+                    isNumber = true;
+                } catch (NumberFormatException e) {
+                    isNumber = false;
+                }
+                if (cell.isEmpty()) {
+                    sb.append("null");                                   // empty cell
+                } else if (isNumber) {
+                    sb.append(cell);
+                } else {
+                    sb.append("\"").append(cell.replace("\"", "\\\"")).append("\"");
+                }
+
+            }
+            sb.append("}");
+            if (i < rows.size() - 1) sb.append(",");
         }
 
-        System.out.println("Wrote " + (rows.size()-1) + " rows to output.json");
+        sb.append("  ]\n");
+        sb.append("}\n");
+        //write file
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("output.json"))) {
+                bw.write(sb.toString());
+            }
+
+            System.out.println("Wrote " + (rows.size() - 1) + " rows to output.json");
+        }
+
+
     }
 
-
-
-}
