@@ -49,7 +49,7 @@ public class MainController {
         fc.setTitle("Choose CSV");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", "*.csv"));
         File f = fc.showOpenDialog(csvlabel.getScene().getWindow());
-        if (f == null) return;  //use cancelled
+        if (f == null) return;  //user cancelled
         csvFile = f;
         csvlabel.setText(f.getName());
         clearResult();
@@ -120,7 +120,7 @@ public class MainController {
         for (int j = 0; j < header.length; j++) {
             final int col = j;
             TableColumn<String[], String> tc = new TableColumn<>(header[j].trim());
-            tc.setPrefWidth(header.length <= 5 ? 110 : 90);
+            tc.setPrefWidth(header.length <= 5 ? 400 : 500);
             tc.setCellValueFactory(c -> {
                 String[] row = c.getValue();
                 String v = (col < row.length && row[col] != null) ? row[col].trim() : "";

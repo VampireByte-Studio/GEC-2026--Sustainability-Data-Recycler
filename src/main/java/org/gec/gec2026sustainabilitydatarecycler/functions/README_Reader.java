@@ -6,7 +6,7 @@ import java.util.*;
 public class README_Reader {
 
     public void readData(String filepath, README_Data B) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {   // CHANGED: uses the path, closes the file
+        try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {   //uses the path, closes the file
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.contains("Number of variables: ")) {                       //Finds specific line
