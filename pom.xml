@@ -70,7 +70,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.gec.gec2026sustainabilitydatarecycler/org.gec.gec2026sustainabilitydatarecycler.HelloApplication
+                                org.gec.gec2026sustainabilitydatarecycler/org.gec.gec2026sustainabilitydatarecycler.Mainapp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
